@@ -1,0 +1,20 @@
+﻿<Window x:Class="lab_rab_1_2chast_FurdinNK_BPI2302.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Вычислительное окно" Height="292" Width="596">
+    <StackPanel Margin="10">
+        <TextBlock Text="Введите x:"/>
+        <TextBox x:Name="InputX" Margin="0,5,0,10"/>
+
+        <StackPanel Orientation="Horizontal">
+            <RadioButton x:Name="RadioArcSin" Content="arcsin" IsChecked="True"/>
+            <RadioButton x:Name="RadioArcCos" Content="arccos" Margin="20,0,0,0"/>
+        </StackPanel>
+
+        <CheckBox x:Name="CheckDegrees" Content="Расчет в градусах" Margin="0,10,0,10"/>
+
+        <Button Content="Посчитать" Click="OnCalculate" Height="30"/>
+
+        <TextBlock x:Name="Output" Margin="0,10,0,0" TextWrapping="Wrap"/>
+    </StackPanel>
+</Window>
