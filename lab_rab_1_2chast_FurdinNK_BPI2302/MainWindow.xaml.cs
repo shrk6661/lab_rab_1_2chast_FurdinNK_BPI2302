@@ -1,5 +1,7 @@
-﻿using System.Windows;
-using lab_rab_1_2chast_FurdinNK_BPI2302.Models; // подключаем наши классы функций
+﻿using System;
+using System.Windows;
+using lab_rab_1_2chast_FurdinNK_BPI2302.Functions;
+using lab_rab_1_2chast_FurdinNK_BPI2302.Models;
 
 namespace lab_rab_1_2chast_FurdinNK_BPI2302
 {
@@ -7,40 +9,66 @@ namespace lab_rab_1_2chast_FurdinNK_BPI2302
     {
         public MainWindow()
         {
-            InitializeComponent(); // загружаем XAML
+            InitializeComponent();
         }
 
         private void OnCalculate(object sender, RoutedEventArgs e)
         {
-            // читаем x из поля ввода
+            // 1. Проверяем, что введено число
             if (!double.TryParse(InputX.Text, out double x))
             {
-                MessageBox.Show("Введите верное число!");
+                MessageBox.Show("Введите корректное число!");
                 return;
             }
 
-            // выбираем функцию: arcsin или arccos
+            // 2. Проверяем диапазон [-1; 1]
+            if (x < -1 || x > 1)
+            {
+                MessageBox.Show("x должен быть в диапазоне [-1; 1]!");
+                return;
+            }
+
+            // 3. Проверяем, выбран ли формат вывода
+            if (RadioRadians.IsChecked != true && RadioDegrees.IsChecked != true)
+            {
+                MessageBox.Show("Выберите формат вывода (радианы или градусы)!");
+                return;
+            }
+
+            // Создаём функцию
             Function f = RadioArcSin.IsChecked == true ? new ArcSin() : new ArcCos();
 
             try
             {
-                // если выбрали arcsin и поставили галочку "в градусах"
-                double y = (f is ArcSin asin && CheckDegrees.IsChecked == true)
-                    ? asin.Value(x, true)
-                    : f.Value(x);
+                // Вычисляем значение с учётом выбранного формата
+                double y;
+                if (f is ArcSin asin)
+                {
+                    bool inDegrees = RadioDegrees.IsChecked == true;
+                    y = asin.Value(x, inDegrees);
+                }
+                else
+                {
+                    y = f.Value(x); // arccos всегда в радианах
+                    if (RadioDegrees.IsChecked == true)
+                        y = y * 180 / Math.PI; // если выбрали градусы, переводим вручную
+                }
 
-                // создаём объект производной и считаем её в x
+                // Производная
                 var df = f.CreateDerivative();
                 double dy = df.Value(x);
 
-                // выводим результат на экран
+                // Если выбрали градусы — производная в градусах
+                if (RadioDegrees.IsChecked == true)
+                    dy = dy * 180 / Math.PI;
+
+                // Вывод
                 Output.Text = $"{f.Info()}\n" +
-                              $"Значение f({x}) = {y}\n" +
-                              $"Значение f'({x}) = {dy}";
+                              $"f({x}) = {y}\n" +
+                              $"f'({x}) = {dy}";
             }
             catch (Exception ex)
             {
-                // если x не подходит (например, x > 1 для arcsin/arccos)
                 MessageBox.Show("Ошибка: " + ex.Message);
             }
         }
