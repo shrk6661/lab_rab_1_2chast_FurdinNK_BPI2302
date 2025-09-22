@@ -15,7 +15,7 @@ namespace lab_rab_1_2chast_FurdinNK_BPI2302
             // читаем x из поля ввода
             if (!double.TryParse(InputX.Text, out double x))
             {
-                MessageBox.Show("Введите корректное число!");
+                MessageBox.Show("Введите верное число!");
                 return;
             }
 
