@@ -29,14 +29,14 @@ namespace lab_rab_1_2chast_FurdinNK_BPI2302
             }
 
             // 3. Проверка выбора формата (радианы или градусы)
-            if (RadioRadians.IsChecked != true && RadioDegrees.IsChecked != true)
+            if (RadioRadians.IsChecked != true && RadioDegrees.IsChecked != true) // проверка не выбрана ни одна из кнопок
             {
                 MessageBox.Show("Выберите формат вывода: радианы или градусы.");
                 return;
             }
 
             // 4. Выбор функции (arcsin или arccos)
-            Function f = RadioArcSin.IsChecked == true ? new ArcSin() : new ArcCos();
+            Function f = RadioArcSin.IsChecked == true ? new ArcSin() : new ArcCos(); // одновременно. if else
 
             try
             {

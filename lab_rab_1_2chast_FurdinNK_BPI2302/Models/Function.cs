@@ -7,7 +7,7 @@
 
         protected Function(string name)
         {
-            Name = name;
+            Name = name; //вызов наследника и присваивание нового имени name
         }
 
         // Каждая функция обязана реализовать этот метод
@@ -25,6 +25,6 @@
             return $"Function: {Name}";
         }
 
-        public override string ToString() => Name;
+        //public override string ToString() => Name;
     }
 }
