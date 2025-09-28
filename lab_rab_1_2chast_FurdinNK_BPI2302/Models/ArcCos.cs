@@ -1,19 +1,23 @@
-﻿namespace lab_rab_1_2chast_FurdinNK_BPI2302.Models;
+﻿using System;
+using lab_rab_1_2chast_FurdinNK_BPI2302.Functions;
 
-public class ArcCos : Function
+namespace lab_rab_1_2chast_FurdinNK_BPI2302.Models
 {
-    public ArcCos() : base("arccos") { }
-
-    public override double Value(double x)
+    public class ArcCos : Function
     {
-        if (x < -1 || x > 1)
-            throw new ArgumentOutOfRangeException(nameof(x), "x должен быть в промежутке [-1;1]");
-        return Math.Acos(x);
-    }
+        public ArcCos() : base("arccos") { }
 
-    public override Function CreateDerivative()
-    {
-        return new AnalyticDerivative(xx => -1.0 / Math.Sqrt(1 - xx * xx), "arccos'");
+        public override double Value(double x)
+        {
+            if (x < -1 || x > 1)
+                throw new ArgumentOutOfRangeException(nameof(x), "x должен быть в диапазоне [-1;1]");
+            return Math.Acos(x);
+        }
+
+        public override Function CreateDerivative()
+        {
+            return new AnalyticDerivative(xx => -1.0 / Math.Sqrt(1 - xx * xx), "arccos'");
+        }
+        // Info() используем из базового класса
     }
-    // Info() не переопределяем — используется базовый
 }
