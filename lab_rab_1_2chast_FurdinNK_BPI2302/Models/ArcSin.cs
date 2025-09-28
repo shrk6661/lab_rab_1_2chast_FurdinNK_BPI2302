@@ -7,7 +7,7 @@
         public override double Value(double x)
         {
             if (x < -1 || x > 1)
-                throw new ArgumentOutOfRangeException(nameof(x), "x должен быть в диапазоне [-1;1]");
+                throw new ArgumentOutOfRangeException(nameof(x), "x должен быть в диапазоне [-1;1]"); //выброс исключения
             return Math.Asin(x);
         }
 

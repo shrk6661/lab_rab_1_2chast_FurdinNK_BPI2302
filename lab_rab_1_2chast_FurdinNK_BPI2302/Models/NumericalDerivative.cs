@@ -14,9 +14,9 @@ namespace lab_rab_1_2chast_FurdinNK_BPI2302.Functions
             _h = h;
         }
 
-        public override double Value(double x)
+        public override double Value(double x) //возвр знач ф-ии в точке х
         {
-            return (_source.Value(x + _h) - _source.Value(x - _h)) / (2 * _h);
+            return (_source.Value(x + _h) - _source.Value(x - _h)) / (2 * _h); //если нет формулы +- вычисляем значение
         }
     }
 }
